@@ -1,9 +1,11 @@
 import 'package:dating_app/helpers/app_localizations.dart';
 import 'package:dating_app/models/app_model.dart';
 import 'package:dating_app/models/user_model.dart';
+import 'package:dating_app/screens/payment_screen.dart';
 import 'package:dating_app/widgets/my_circular_progress.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class StoreProducts extends StatefulWidget {
@@ -22,6 +24,36 @@ class _StoreProductsState extends State<StoreProducts> {
   bool _storeIsAvailable = false;
   List<ProductDetails>? _products;
   late AppLocalizations _i18n;
+
+  void handlePaymentErrorResponse(PaymentFailureResponse response) {
+    /*
+    * PaymentFailureResponse contains three values:
+    * 1. Error Code
+    * 2. Error Description
+    * 3. Metadata
+    * */
+
+    // showAlertDialog(context, "Payment Failed",
+    //     "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
+  }
+
+  void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
+    /*
+    * Payment Success Response contains three values:
+    * 1. Order ID
+    * 2. Payment ID
+    * 3. Signature
+    * */
+
+    // showAlertDialog(
+    //     context, "Payment Successful", "Payment ID: ${response.paymentId}");
+  }
+
+  void handleExternalWalletSelected(ExternalWalletResponse response) {
+    // showAlertDialog(
+    //     context, "External Wallet Selected", "${response.walletName}");
+  }
+
 
   @override
   void initState() {
@@ -138,20 +170,46 @@ class _StoreProductsState extends State<StoreProducts> {
                           style: const TextStyle(color: Colors.white))
                       : Text(_i18n.translate("SUBSCRIBE"),
                           style: const TextStyle(color: Colors.white)),
-                  onPressed: userModel.activeVipId == item.id
-                      ? null
-                      : () async {
-                        print('my item');
-                        print(item);
-                          // Purchase parameters
-                          final pParam = PurchaseParam(
-                            productDetails: item,
-                          );
 
-                          /// Subscribe
-                          InAppPurchase.instance
-                              .buyNonConsumable(purchaseParam: pParam);
-                        }),
+                onPressed: () async {
+                  Razorpay razorpay = Razorpay();
+
+                  var options = {
+                    'key': 'rzp_live_ILgsfZCZoFIKMb',
+                    'amount':
+                    int.parse("100") * 100, //in paise.
+                    'name': 'Datting App.',
+                    'description': 'Fine T-Shirt',
+                    'timeout': 60, // in seconds
+                    'prefill': {
+                      'contact': '7389681128',
+                      'email': 'gaurav.kumar@example.com'
+                    }
+                  };
+
+                  razorpay.on(Razorpay.EVENT_PAYMENT_ERROR,
+                      handlePaymentErrorResponse);
+                  razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
+                      handlePaymentSuccessResponse);
+                  razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
+                      handleExternalWalletSelected);
+                  razorpay.open(options);
+                },
+                  // onPressed: userModel.activeVipId == item.id
+                  //     ? null
+                  //     : () async {
+                  //       print('my item');
+                  //       print(item);
+                  //         // Purchase parameters
+                  //         final pParam = PurchaseParam(
+                  //           productDetails: item,
+                  //         );
+                  //
+                  //         /// Subscribe
+                  //         InAppPurchase.instance
+                  //             .buyNonConsumable(purchaseParam: pParam);
+                  //       }
+                        ),
             ),
           );
         }).toList());

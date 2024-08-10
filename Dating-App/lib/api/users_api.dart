@@ -24,7 +24,7 @@ class UsersApi {
     List<String> allId = [];
     List<DocumentSnapshot<Map<String, dynamic>>> docList = [];
     final conRef = _firestore.collection(C_USERS);
-    await conRef.get().then(
+    await conRef.limit(100).get().then(
       (value) async {
         for (final doc in value.docs) {
           final docRef = _firestore.collection(C_USERS).doc(doc.id);

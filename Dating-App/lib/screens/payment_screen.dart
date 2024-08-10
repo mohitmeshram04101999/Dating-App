@@ -17,9 +17,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
   TextEditingController _controller = TextEditingController();
 
   late AppLocalizations _i18n;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller.text="100";
+  }
 
   @override
   Widget build(BuildContext context) {
+
     _i18n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -52,6 +59,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   child: Text(_i18n.translate("CONTINUE"),
                       style:
                           const TextStyle(fontSize: 18, color: Colors.white)),
+
+                  //
+                  //
                   onPressed: () async {
                     Razorpay razorpay = Razorpay();
 
@@ -75,7 +85,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
                         handleExternalWalletSelected);
                     razorpay.open(options);
-                  }),
+                  }
+                  //
+                //
+
+                  ),
+
+              //
             ),
           ],
         ),
