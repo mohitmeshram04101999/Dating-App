@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app/constants/constants.dart';
+import 'package:dating_app/models/app_model.dart';
+import 'package:dating_app/models/user_model.dart';
+import 'package:dating_app/plugins/geoflutterfire/geoflutterfire.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:share/share.dart';
+// import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dating_app/plugins/geoflutterfire/geoflutterfire.dart';
-import 'package:dating_app/models/user_model.dart';
-import 'package:dating_app/models/app_model.dart';
 
 class AppHelper {
   /// Local variables
@@ -182,7 +182,7 @@ class AppHelper {
 
   /// Share app method
   Future<void> shareApp() async {
-    Share.share(_appStoreUrl);
+    // Share.share(_appStoreUrl);
   }
 
   /// Review app method
