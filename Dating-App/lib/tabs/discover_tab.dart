@@ -41,7 +41,7 @@ class _DiscoverTabState extends State<DiscoverTab> {
       List<DocumentSnapshot<Map<String, dynamic>>> dislikedUsers) async {
     _usersApi.getUsers(dislikedUsers: dislikedUsers).then((users) {
       print('usersssss');
-      print(users);
+      // print(users);
       // Check result
       if (users.isNotEmpty) {
         if (mounted) {
@@ -243,7 +243,7 @@ class _DiscoverTabState extends State<DiscoverTab> {
   Future<void> _likeUser(BuildContext context,  
       {required DocumentSnapshot<Map<String, dynamic>> clickedUserDoc})async{
         print('user doc');
-        print(clickedUserDoc);
+        // print(clickedUserDoc);
         print('enter here');
     /// Check match first
     await _matchesApi.checkMatch(

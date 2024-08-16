@@ -29,8 +29,8 @@ class UsersApi {
         for (final doc in value.docs) {
           final docRef = _firestore.collection(C_USERS).doc(doc.id);
            DocumentSnapshot<Map<String, dynamic>> docData = await docRef.get();
-          print('first id');
-          print('${doc.id} => ${doc.data()} ');
+          print('${doc.id}} ');
+          // print('${doc.id} => ${doc.data()} ');
           allId.add(doc.id);
           docList.add(docData);
         }
