@@ -44,12 +44,14 @@ class VipDialog extends StatelessWidget {
                                 fontWeight: FontWeight.bold)),
                       ),
                       ListTile(
+                        //
                         leading: CircleAvatar(
                           radius: 25,
                           backgroundColor: Theme.of(context).primaryColor,
                           backgroundImage:
                               NetworkImage(UserModel().user.userProfilePhoto),
                         ),
+                        //
                         title: Text(
                             '${i18n.translate("hello")} ${UserModel().user.userFullname.split(' ')[0]}, '
                             '${i18n.translate("become_a_vip_member_and_enjoy_the_benefits_below")}',
