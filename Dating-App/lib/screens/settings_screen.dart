@@ -163,7 +163,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 /// Show VIP dialog
                                 showDialog(
                                     context: context,
-                                    builder: (context) => const VipDialog());
+                                    builder: (context) =>  VipDialog());
                               }
                             },
                           ),

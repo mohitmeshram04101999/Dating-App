@@ -24,7 +24,7 @@ class VipAccountCard extends StatelessWidget {
         onTap: () {
           /// Show VIP dialog
           showDialog(context: context, 
-            builder: (context) => const VipDialog());
+            builder: (context) => VipDialog());
         },
       ),
     );

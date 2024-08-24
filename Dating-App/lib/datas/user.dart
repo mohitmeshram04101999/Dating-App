@@ -29,6 +29,7 @@ class User {
   final int userTotalDisliked;
   final Map<String, dynamic>? userGallery;
   final Map<String, dynamic>? userSettings;
+  final ActivePlan? activePlan;
 
   // Constructor
   User({
@@ -58,6 +59,7 @@ class User {
     required this.userTotalLikes,
     required this.userTotalVisits,
     required this.userTotalDisliked,
+    this.activePlan
   });
 
   /// factory user object
@@ -89,6 +91,37 @@ class User {
       userTotalLikes: doc[USER_TOTAL_LIKES] ?? 0,
       userTotalVisits: doc[USER_TOTAL_VISITS] ?? 0,
       userTotalDisliked: doc[USER_TOTAL_DISLIKED] ?? 0,
+      activePlan: (doc["activePlan"]!=null)?ActivePlan.fromJson(doc["activePlan"]):null
     );
   }
+}
+
+
+
+class ActivePlan {
+  String? planId;
+  DateTime? activeDate;
+  DateTime? planEndDate;
+  int? leftDay;
+
+  ActivePlan({
+    this.planId,
+    this.activeDate,
+    this.planEndDate,
+    this.leftDay,
+  });
+
+  factory ActivePlan.fromJson(Map<String, dynamic> json) => ActivePlan(
+    planId: json["planId"],
+    activeDate: json["activeDate"] == null ? null : DateTime.parse(json["activeDate"]),
+    planEndDate: json["planEndDate"] == null ? null : DateTime.parse(json["planEndDate"]),
+    leftDay: json["leftDay"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "planId": planId,
+    "activeDate": activeDate?.toIso8601String(),
+    "planEndDate": planEndDate?.toIso8601String(),
+    "leftDay": leftDay,
+  };
 }

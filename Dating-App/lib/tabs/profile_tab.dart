@@ -50,6 +50,8 @@ class ProfileTab extends StatelessWidget {
             /// Delete Account Button
             const DeleteAccountButton(),
 
+            SizedBox(),
+
             const SizedBox(height: 25),
 
           ],

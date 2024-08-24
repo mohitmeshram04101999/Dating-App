@@ -1,14 +1,37 @@
+import 'package:dating_app/api/fireBalseAPi.dart';
+import 'package:dating_app/component/plan%20view%20Widget.dart';
 import 'package:dating_app/constants/constants.dart';
 import 'package:dating_app/helpers/app_helper.dart';
 import 'package:dating_app/helpers/app_localizations.dart';
 import 'package:dating_app/models/app_model.dart';
+import 'package:dating_app/models/planModel.dart';
 import 'package:dating_app/models/user_model.dart';
 import 'package:dating_app/widgets/store_products.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class VipDialog extends StatelessWidget {
-  const VipDialog({Key? key}) : super(key: key);
+  VipDialog({Key? key}) : super(key: key);
+
+
+  List plans = [
+    {
+      "plan": "1_month_950",
+      "price":950,
+    },
+    {
+      "plan": "3_month_2700",
+      "price":3700,
+    },
+    {
+      "plan": "6_month_5000",
+      "price":5000,
+    },
+    {
+      "plan": "1_year_6000",
+      "price":6000,
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -91,51 +114,109 @@ class VipDialog extends StatelessWidget {
                   const Divider(height: 10, thickness: 1),
 
                   /// VIP Subscriptions
-                  StoreProducts(
-                    priceColor: Colors.green,
-                    icon: Image.asset('assets/images/crow_badge.png',
-                        width: 50, height: 50),
-                  ),
-                  const Divider(thickness: 1, height: 30),
+                  // StoreProducts(
+                  //   priceColor: Colors.green,
+                  //   icon: Image.asset('assets/images/crow_badge.png',
+                  //       width: 50, height: 50),
+                  // ),
+
+
+
+
+
+                  if(UserModel().user.activePlan==null)...{
+                    FutureBuilder(
+                        future: DataBase().getPlans(),
+                        builder: (context,s){
+                          if(s.connectionState==ConnectionState.waiting)
+                          {
+                            return const  Center(child: CircularProgressIndicator(),);
+                          }
+                          if(s.hasError)
+                          {
+                            return  Center(child: Text("${s.error}"),);
+                          }
+                          if(s.data==null||s.data?.docs.length==0)
+                          {
+                            return const Center(child: Text("No Plans avlabl"),);
+                          }
+
+
+                          return Column(
+                            children: s.data?.docs.map((e){
+                              var _p = VipPlanDetail.fromJson(e.data());
+
+                              return PlanViewTile(
+                                plan: _p,
+                              );
+
+                              //
+                            }).toList()??[],
+                          );
+                        }),
+
+                  }
+                  else...{
+                   FutureBuilder(
+                     future: DataBase().getVipPlan(UserModel().user.activePlan?.planId??""),
+                     builder: (c,s){
+                       var _loding = s.connectionState==ConnectionState.waiting;
+
+                       if(_loding)
+                         {
+                           return const Center(child: CircularProgressIndicator(),);
+                         }
+                       if(s.data==null)
+                         {
+                           return Text("null");
+                         }
+
+                       return  PlanViewTile(active: true,plan:s.data!,);
+                     },
+                   )
+                  },
+
+                  
+                  // const Divider(thickness: 1, height: 30),
 
                   // Show Restore VIP Subscription button
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                            i18n.translate(
-                                'have_you_already_purchased_a_VIP_account'),
-                            style: const TextStyle(fontSize: 16),
-                            textAlign: TextAlign.center),
-                        const SizedBox(height: 10),
-                        // Restore subscription button
-                        TextButton.icon(
-                          icon: const Icon(Icons.refresh),
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              shape: MaterialStateProperty.all<OutlinedBorder>(
-                                  RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(28),
-                              ))),
-                          label: Text(i18n.translate('restore_subscription')),
-                          onPressed: () async {
-                            // Show toast processing message
-                            Fluttertoast.showToast(
-                              msg: i18n.translate('processing'),
-                              gravity: ToastGravity.CENTER,
-                              backgroundColor: APP_PRIMARY_COLOR,
-                              textColor: Colors.white,
-                            );
-                            // Restore VIP subscription
-                            AppHelper().restoreVipAccount(showMsg: true);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Divider(thickness: 1),
+                  // Center(
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       Text(
+                  //           i18n.translate(
+                  //               'have_you_already_purchased_a_VIP_account'),
+                  //           style: const TextStyle(fontSize: 16),
+                  //           textAlign: TextAlign.center),
+                  //       const SizedBox(height: 10),
+                  //       // Restore subscription button
+                  //       TextButton.icon(
+                  //         icon: const Icon(Icons.refresh),
+                  //         style: ButtonStyle(
+                  //             backgroundColor: MaterialStateProperty.all<Color>(
+                  //                 Colors.white),
+                  //             shape: MaterialStateProperty.all<OutlinedBorder>(
+                  //                 RoundedRectangleBorder(
+                  //               borderRadius: BorderRadius.circular(28),
+                  //             ))),
+                  //         label: Text(i18n.translate('restore_subscription')),
+                  //         onPressed: () async {
+                  //           // Show toast processing message
+                  //           Fluttertoast.showToast(
+                  //             msg: i18n.translate('processing'),
+                  //             gravity: ToastGravity.CENTER,
+                  //             backgroundColor: APP_PRIMARY_COLOR,
+                  //             textColor: Colors.white,
+                  //           );
+                  //           // Restore VIP subscription
+                  //           AppHelper().restoreVipAccount(showMsg: true);
+                  //         },
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // const Divider(thickness: 1),
                 ],
               ),
             ),
