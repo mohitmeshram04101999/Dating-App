@@ -192,7 +192,7 @@ class _DislikedProfilesScreenState extends State<DislikedProfilesScreen> {
                           /// Show VIP dialog
                           showDialog(
                               context: context,
-                              builder: (context) => const VipDialog());
+                              builder: (context) => VipDialog());
                         }
                       },
                     );

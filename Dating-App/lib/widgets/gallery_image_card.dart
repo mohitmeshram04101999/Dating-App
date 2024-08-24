@@ -79,7 +79,7 @@ class GalleryImageCard extends StatelessWidget {
     /// Check user vip account
     if (!UserModel().userIsVip && index > 3) {
       /// Show VIP dialog
-      showDialog(context: context, builder: (context) => const VipDialog());
+      showDialog(context: context, builder: (context) =>  VipDialog());
       debugPrint('You need to activate vip account');
       return;
     }
@@ -117,7 +117,7 @@ class GalleryImageCard extends StatelessWidget {
     /// Check user vip account
     if (!UserModel().userIsVip && index > 3) {
       /// Show VIP dialog
-      showDialog(context: context, builder: (context) => const VipDialog());
+      showDialog(context: context, builder: (context) =>  VipDialog());
       debugPrint('You need to activate vip account');
       return;
     }

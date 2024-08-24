@@ -187,7 +187,7 @@ class _ProfileVisitsScreenState extends State<ProfileVisitsScreen> {
                           /// Show VIP dialog
                           showDialog(
                               context: context,
-                              builder: (context) => const VipDialog());
+                              builder: (context) => VipDialog());
                         }
                       },
                     );

@@ -259,6 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        fixedColor: Colors.white,
           type: BottomNavigationBarType.fixed,
           elevation: Platform.isIOS ? 0 : 8,
           currentIndex: _selectedIndex,
@@ -270,7 +271,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 27,
                     height: 27,
                     color: _selectedIndex == 0
-                        ? Theme.of(context).primaryColor
+                        ? Colors.white
                         : null),
                 label: _i18n.translate("discover")),
 
@@ -281,7 +282,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ? "assets/icons/heart_2_icon.svg"
                         : "assets/icons/heart_icon.svg",
                     color: _selectedIndex == 1
-                        ? Theme.of(context).primaryColor
+                        ? Colors.white
                         : null),
                 label: _i18n.translate("matches")),
 
@@ -297,7 +298,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ? "assets/icons/user_2_icon.svg"
                         : "assets/icons/user_icon.svg",
                     color: _selectedIndex == 3
-                        ? Theme.of(context).primaryColor
+                        ? Colors.white
                         : null),
                 label: _i18n.translate("profile")),
           ]),
@@ -338,7 +339,7 @@ class _HomeScreenState extends State<HomeScreen> {
             : "assets/icons/message_icon.svg",
         width: 30,
         height: 30,
-        color: _selectedIndex == 2 ? Theme.of(context).primaryColor : null);
+        color: _selectedIndex == 2 ? Colors.white : null);
 
     /// Handle stream
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
