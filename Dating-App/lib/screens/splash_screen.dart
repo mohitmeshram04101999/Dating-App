@@ -82,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 children: <Widget>[
                   const AppLogo(),
                   const SizedBox(height: 10),
-                  const Text(APP_NAME,
+                  const Text('Friend Book App',
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 5),

@@ -47,7 +47,7 @@ class _SignInScreenState extends State<SignInScreen> {
               const SizedBox(height: 10),
 
               /// App name
-              const Text(APP_NAME,
+              const Text('Friend Book App',
                   style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
