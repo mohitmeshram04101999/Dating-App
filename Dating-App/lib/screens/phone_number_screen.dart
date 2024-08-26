@@ -137,57 +137,112 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
   }
 
   /// Sign in with phone number
+  // void _signIn(BuildContext context) async {
+  //   // Show progress dialog
+  //   _pr.show(_i18n.translate("processing"));
+  //
+  //   /// Verify user phone number
+  //   await UserModel().verifyPhoneNumber(
+  //       phoneNumber: _phoneCode! + _numberController.text.trim(),
+  //       checkUserAccount: () {
+  //         /// Authenticate User Account
+  //         UserModel().authUserAccount(
+  //
+  //           updateLocationScreen: () => _nextScreen(const UpdateLocationScreen()),
+  //           signUpScreen: () => _nextScreen(const SignUpScreen()),
+  //           homeScreen: () => _nextScreen(const HomeScreen()),
+  //           blockedScreen: () => _nextScreen(const BlockedAccountScreen()));
+  //
+  //         // END
+  //       },
+  //       codeSent: (code) async {
+  //         // Hide progreess dialog
+  //         log(code);
+  //         _pr.hide();
+  //         // Go to verification code screen
+  //         Navigator.of(context).push(MaterialPageRoute(
+  //             builder: (context) => VerificationCodeScreen(
+  //                   verificationId: code,
+  //                 )));
+  //       },
+  //       onError: (errorType, msg) async {
+  //         showDialog(context: context, builder: (context)=>AlertDialog(
+  //           title: Text(errorType),
+  //           content: Text(msg.toString()),
+  //         ));
+  //         // // Hide progreess dialog
+  //         // ShowMeDialog(
+  //         //   key: errorType,msg,
+  //         // );
+  //         _pr.hide();
+  //
+  //         // Check Erro type
+  //
+  //         if (errorType == 'invalid_number') {
+  //             // Check error type
+  //             final String message =
+  //                 _i18n.translate("we_were_unable_to_verify_your_number") +"\nError: $msg";
+  //             // Show error message
+  //             // Validate context
+  //             if (mounted) {
+  //               showScaffoldMessage(
+  //                   context: context, message: message, bgcolor: Colors.red);
+  //             }
+  //         }
+  //       });
+  // }
+
   void _signIn(BuildContext context) async {
     // Show progress dialog
     _pr.show(_i18n.translate("processing"));
 
     /// Verify user phone number
     await UserModel().verifyPhoneNumber(
-        phoneNumber: _phoneCode! + _numberController.text.trim(),
-        checkUserAccount: () {
-          /// Authenticate User Account
-          UserModel().authUserAccount(
+      phoneNumber: _phoneCode! + _numberController.text.trim(),
+      checkUserAccount: () {
+        /// Authenticate User Account
+        UserModel().authUserAccount(
+          updateLocationScreen: () => _nextScreen(const UpdateLocationScreen()),
+          signUpScreen: () => _nextScreen(const SignUpScreen()),
+          homeScreen: () => _nextScreen(const HomeScreen()),
+          blockedScreen: () => _nextScreen(const BlockedAccountScreen()),
+        );
 
-            updateLocationScreen: () => _nextScreen(const UpdateLocationScreen()),
-            signUpScreen: () => _nextScreen(const SignUpScreen()),
-            homeScreen: () => _nextScreen(const HomeScreen()),
-            blockedScreen: () => _nextScreen(const BlockedAccountScreen()));
+        // END
+      },
+      codeSent: (code) async {
+        // Hide progress dialog
+        log(code);
+        _pr.hide();
+        // Go to verification code screen
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => VerificationCodeScreen(
+            verificationId: code,
+          ),
+        ));
+      },
+      onError: (errorType, msg) async {
+        // Hide progress dialog
+        _pr.hide();
 
-          // END
-        },
-        codeSent: (code) async {
-          // Hide progreess dialog
-          log(code);
-          _pr.hide();
-          // Go to verification code screen
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => VerificationCodeScreen(
-                    verificationId: code,
-                  )));
-        },
-        onError: (errorType, msg) async {
-          showDialog(context: context, builder: (context)=>AlertDialog(
-            title: Text(errorType),
-            content: Text(msg.toString()),
-          ));
-          // // Hide progreess dialog
-          // ShowMeDialog(
-          //   key: errorType,msg,
-          // );
-          _pr.hide();
-
-          // Check Erro type
-          if (errorType == 'invalid_number') {
-              // Check error type
-              final String message =
-                  _i18n.translate("we_were_unable_to_verify_your_number") +"\nError: $msg";
-              // Show error message
-              // Validate context
-              if (mounted) {
-                showScaffoldMessage(
-                    context: context, message: message, bgcolor: Colors.red);
-              }
+        // Check Error type
+        if (errorType == 'invalid_number') {
+          // Check error type
+          final String message = _i18n.translate("we_were_unable_to_verify_your_number") + "\nError: $msg";
+          // Show error message
+          if (mounted) {
+            // Show Snackbar with auto close
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(message),
+                backgroundColor: Colors.red,
+                duration: const Duration(seconds: 5), // Snackbar will close automatically after 3 seconds
+              ),
+            );
           }
-        });
+        }
+      },
+    );
   }
+
 }

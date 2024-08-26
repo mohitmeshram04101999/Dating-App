@@ -60,7 +60,8 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
           // Show error message to user
           errorDialog(context,
               message: _i18n.translate("we_were_unable_to_verify_your_number"));
-        });
+        }
+        );
 
     // Hide progress dialog
     await _pr.hide();

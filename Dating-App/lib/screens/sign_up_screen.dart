@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dating_app/dialogs/common_dialogs.dart';
 import 'package:dating_app/helpers/app_localizations.dart';
 import 'package:dating_app/models/user_model.dart';
@@ -144,21 +143,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
         title: Text(_i18n.translate("sign_up")),
         actions: [
           // LOGOUT BUTTON
-          TextButton(
-            child: Text(_i18n.translate('sign_out'),
-                style: TextStyle(color: Theme.of(context).primaryColor)),
-            onPressed: () {
-              // Log out button
-              UserModel().signOut().then((_) {
-                /// Go to login screen
-                Future(() {
-                  Navigator.of(context).popUntil((route) => route.isFirst);
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const SignInScreen()));
-                });
-              });
-            },
-          )
+          // TextButton(
+          //   child: Text(_i18n.translate('sign_out'),
+          //       style: TextStyle(color: Theme.of(context).primaryColor)),
+          //   onPressed: () {
+          //     // Log out button
+          //     UserModel().signOut().then((_) {
+          //       /// Go to login screen
+          //       Future(() {
+          //         Navigator.of(context).popUntil((route) => route.isFirst);
+          //         Navigator.of(context).pushReplacement(MaterialPageRoute(
+          //             builder: (context) => const SignInScreen()));
+          //       });
+          //     });
+          //   },
+          // )
         ],
       ),
       body: ScopedModelDescendant<UserModel>(
@@ -391,8 +390,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         onSuccess: () async {
           // Show success message
           successDialog(context,
+              positiveText: 'Next',
               message:
-                  _i18n.translate("your_account_has_been_created_successfully"),
+                  _i18n.translate("your_account_has_been_created_successfully"),isDismissable: false,
               positiveAction: () {
             // Execute action
             // Go to get the user device's current location

@@ -1,8 +1,10 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dating_app/dialogs/vip_dialog.dart';
 import 'package:dating_app/models/planModel.dart';
 import 'package:dating_app/models/user_model.dart';
+import 'package:dating_app/tabs/profile_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
@@ -64,15 +66,14 @@ class _PlanViewTileState extends State<PlanViewTile> {
            backgroundColor: MaterialStateProperty.resolveWith((s)=>Colors.green),
           ),
           onPressed: () async {
+
             Razorpay razorpay = Razorpay();
-
-
 
             var options = {
               'key': 'rzp_test_0wFRWIZnH65uny',
               'amount':
-              int.parse("1") * 100, //in paise.
-              'name': 'Datting App.',
+              int.parse("${widget.plan.price?.toInt()}") * 100, //in paise.
+              'name': 'Friend Book',
               'description': 'Fine T-Shirt',
               'timeout': 60, // in seconds
               'prefill': {
@@ -91,6 +92,7 @@ class _PlanViewTileState extends State<PlanViewTile> {
             razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
             razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
             razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+
 
           },child:const  Text("BUY"),),
 
@@ -112,7 +114,26 @@ class _PlanViewTileState extends State<PlanViewTile> {
     return _leftDate;
   }
 
+
+
   void _handlePaymentSuccess(PaymentSuccessResponse response) async{
+    final _textStyle =
+    TextStyle(fontSize: 18, color: Theme.of(context).scaffoldBackgroundColor);
+    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>()));
+    print("asdfasdfa 2 ");
+    showDialog(context: context,barrierDismissible: false, builder: (context)=>  AlertDialog(
+      title: Text('Success',style: TextStyle(fontSize: 22,color: Colors.white),),
+      content:
+      Text("You have successfuly purchased the subscription",style: TextStyle(fontSize: 15,color: Colors.white),),
+      actions: [
+        TextButton(onPressed: (){
+          Navigator.pop(context);
+          Navigator.pop(context);
+        }, child: Text('Ok', style: _textStyle,))
+      ],
+
+      ),
+    );
     // Do something when payment succeeds
     
     var user = UserModel().user;
@@ -150,8 +171,13 @@ class _PlanViewTileState extends State<PlanViewTile> {
     // Do something when payment fails
 
     print("asdfasdfa 2 ");
-    showDialog(context: context, builder: (context)=>const AlertDialog(
-      content: Text("failer"),
+    showDialog(context: context,barrierDismissible: false, builder: (context)=>const AlertDialog(
+      title: Text('Failed to subscribe',style: TextStyle(fontSize: 22,color: Colors.white),),
+      content: Text("You have cancelled the subscription",style: TextStyle(fontSize: 15,color: Colors.white),),
+      actions: [
+
+      ],
+
     ));
   }
 
@@ -160,7 +186,7 @@ class _PlanViewTileState extends State<PlanViewTile> {
 
     print("asdfasdfa 1 ");
     showDialog(context: context, builder: (context)=>const AlertDialog(
-      content: Text("cancle"),
+      content: Text("Cancel"),
     ));
   }
 }

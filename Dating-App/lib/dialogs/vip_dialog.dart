@@ -10,10 +10,14 @@ import 'package:dating_app/widgets/store_products.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class VipDialog extends StatelessWidget {
+class VipDialog extends StatefulWidget {
   VipDialog({Key? key}) : super(key: key);
 
+  @override
+  State<VipDialog> createState() => _VipDialogState();
+}
 
+class _VipDialogState extends State<VipDialog> {
   List plans = [
     {
       "plan": "1_month_950",
@@ -32,9 +36,9 @@ class VipDialog extends StatelessWidget {
       "price":6000,
     },
   ];
-
   @override
   Widget build(BuildContext context) {
+
     final i18n = AppLocalizations.of(context);
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
@@ -176,7 +180,7 @@ class VipDialog extends StatelessWidget {
                    )
                   },
 
-                  
+
                   // const Divider(thickness: 1, height: 30),
 
                   // Show Restore VIP Subscription button

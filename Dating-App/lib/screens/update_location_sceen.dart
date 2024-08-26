@@ -121,7 +121,7 @@ class _UpdateLocationScreenState extends State<UpdateLocationScreen> {
         // Show success message
         successDialog(context,
             message: '${_i18n.translate("location_updated_successfully")}\n\n'
-                '${place.country}, $locality', positiveAction: () {
+                '${place.country}, $locality',isDismissable: false,positiveText: 'Next', positiveAction: () {
           // Check
           if (widget.isSignUpProcess) {
             // Go to home screen
@@ -198,7 +198,7 @@ class _UpdateLocationScreenState extends State<UpdateLocationScreen> {
               DefaultButton(
                   child: Text(_i18n.translate('GET_LOCATION'),
                       style:
-                          const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                          const TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white)),
                   onPressed: () async {
                     // Get location permission
                     _getLocationPermission(context);

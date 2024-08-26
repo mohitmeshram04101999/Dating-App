@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 /// APP SETINGS INFO CONSTANTS - SECTION ///
 ///
 const String APP_NAME = "Friend Book";
-const Color APP_PRIMARY_COLOR = Colors.pink; 
+const Color APP_PRIMARY_COLOR = Colors.pink;
+const Color TEXT_COLOR = Colors.white;
 const Color APP_ACCENT_COLOR = Colors.pinkAccent;
 const String APP_VERSION_NAME = "Android v1.0.0 & iOS v1.0.0";
 const int ANDROID_APP_VERSION_NUMBER = 1; // Google Play Version Number

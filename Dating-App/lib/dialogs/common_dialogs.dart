@@ -8,6 +8,7 @@ void successDialog(
   required String message,
   Widget? icon,
   String? title,
+      bool isDismissable = true,
   String? negativeText,
   VoidCallback? negativeAction,
   String? positiveText,
@@ -15,6 +16,7 @@ void successDialog(
 }) {
   _buildDialog(context, "success",
       message: message,
+      isDismissable: isDismissable,
       icon: icon,
       title: title,
       negativeText: negativeText,
@@ -26,6 +28,7 @@ void successDialog(
 /// Error Dialog
 void errorDialog(
   BuildContext context, {
+      bool isDismissable = true,
   required String message,
   Widget? icon,
   String? title,
@@ -36,6 +39,7 @@ void errorDialog(
 }) {
   _buildDialog(context, "error",
       message: message,
+      isDismissable:isDismissable ,
       icon: icon,
       title: title,
       negativeText: negativeText,
@@ -47,6 +51,7 @@ void errorDialog(
 /// Confirm Dialog
 void confirmDialog(
   BuildContext context, {
+      bool isDismissable = true,
   required String message,
   Widget? icon,
   String? title,
@@ -56,6 +61,7 @@ void confirmDialog(
   VoidCallback? positiveAction,
 }) {
   _buildDialog(context, "confirm",
+      isDismissable: isDismissable,
       icon: icon,
       title: title,
       message: message,
@@ -68,6 +74,7 @@ void confirmDialog(
 /// Confirm Dialog
 void infoDialog(
   BuildContext context, {
+      bool isDismissable = true,
   required String message,
   Widget? icon,
   String? title,
@@ -78,6 +85,7 @@ void infoDialog(
 }) {
   _buildDialog(context, "info",
       icon: icon,
+      isDismissable: isDismissable,
       title: title,
       message: message,
       negativeText: negativeText,
@@ -91,6 +99,7 @@ void _buildDialog(
   BuildContext context,
   String type, {
   required Widget? icon,
+      bool isDismissable=true,
   required String? title,
   required String message,
   required String? negativeText,
@@ -101,7 +110,7 @@ void _buildDialog(
   // Variables
   final i18n = AppLocalizations.of(context);
   final _textStyle =
-      TextStyle(fontSize: 18, color: Theme.of(context).primaryColor);
+      TextStyle(fontSize: 18, color: Theme.of(context).scaffoldBackgroundColor);
   late Widget _icon;
   late String _title;
 
@@ -144,7 +153,7 @@ void _buildDialog(
 
   showDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: isDismissable,
       builder: (context) {
         return AlertDialog(
           shape: defaultCardBorder(),
