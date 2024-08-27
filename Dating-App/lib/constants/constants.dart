@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 /// APP SETINGS INFO CONSTANTS - SECTION ///
 ///
-const String APP_NAME = "Flutter Dating App";
+const String APP_NAME = "Friend book";
 const Color APP_PRIMARY_COLOR = Colors.pink; 
 const Color APP_ACCENT_COLOR = Colors.pinkAccent;
 const String APP_VERSION_NAME = "Android v1.0.0 & iOS v1.0.0";

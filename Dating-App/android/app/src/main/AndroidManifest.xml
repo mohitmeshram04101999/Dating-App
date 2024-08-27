@@ -57,7 +57,7 @@
     </queries>
 
    <application
-        android:label="Dating App"
+        android:label="Friend book"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
